@@ -1,0 +1,22 @@
+The .CSV file is organized in the following way, each column a variable, each row
+an observation.
+***************
+Here the meaning of the columns:
+-CID: Cave ID. TRM = Bucone di Tremezzo, IFT = Ingresso Fornitori, LNO = Grotta Lino
+-ID: ID number of the CR39 detector.
+-N: number of the detector.
+-T1: temperature at positioning.
+-H2O: presence/absence of water.
+-DEPTH: depth with respect to the entrance of the cave.
+-T2: temperature at recovery.
+-EXP: exposition in kBq*h/m^3
+-CONC: concentration in Bq/m^3
+-ERR: relative error to the concentration, %
+-NOTES
+-REF: geographical altitude of the historical entrance
+-ROCK: litotype 
+***************
+The detectors were exposed for 105 days, with the exposure:
+-TRM: 06/11/17-09/24/17
+-IFT: 06/18/17-10/01/17
+-LNO: 06/25/17-10/08/17 
