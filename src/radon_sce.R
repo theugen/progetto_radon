@@ -5,8 +5,9 @@ library(dplyr)
 setwd('~/tmp/progetto_radon/')
 #Importing data file
 rn <- read.csv(file = 'data/misure.csv', sep=',', header = T, stringsAsFactors = F)
+#Computing absolute error and mean temperature
 rn <- mutate(rn, ABS_ERR = (ERR * CONC)/100)
-
+rn <- mutate(rn, TMEAN = (T1+T2)/2)
 
 
 #Want to check if it does exist a directory for the graphs: if not, we'll create it
@@ -43,9 +44,9 @@ rnp_fc_water_lm <- ggplot(rn, aes(x=-DEPTH, y=CONC, color=H2O)) + geom_point() +
   facet_grid(. ~ CID) + geom_errorbar(aes(x =-DEPTH, ymin = (CONC - ABS_ERR), ymax = (CONC + ABS_ERR)))
 ggsave(rnp_fc_water_lm, file='graphs/conc_fc_err.png', width = 12, height = 6) 
 
-#Now the same as above, but with loess
-rnp_fc_water_loess <- ggplot(rn, aes(x=-DEPTH, y=CONC, color=H2O)) + geom_point() + 
-  labs(title='Concentration with depth', x='Depth (m)', y='Concentration (Bq/m^3)')  + 
-  geom_smooth(method='loess') +
-  facet_grid(. ~ CID) + geom_errorbar(aes(x =-DEPTH, ymin = (CONC - ABS_ERR), ymax = (CONC + ABS_ERR)))
-ggsave(rnp_fc_water_loess, file='graphs/conc_fc_err.png', width = 12, height = 6) 
+# #Now the same as above, but with loess
+# rnp_fc_water_loess <- ggplot(rn, aes(x=-DEPTH, y=CONC, color=H2O)) + geom_point() + 
+#   labs(title='Concentration with depth', x='Depth (m)', y='Concentration (Bq/m^3)')  + 
+#   geom_smooth(method='loess') +
+#   facet_grid(. ~ CID) + geom_errorbar(aes(x =-DEPTH, ymin = (CONC - ABS_ERR), ymax = (CONC + ABS_ERR)))
+# ggsave(rnp_fc_water_loess, file='graphs/conc_fc_err.png', width = 12, height = 6) 
