@@ -9,6 +9,11 @@ rn <- read.csv(file = 'data/misure.csv', sep=',', header = T, stringsAsFactors =
 rn <- mutate(rn, ABS_ERR = (ERR * CONC)/100)
 rn <- mutate(rn, TMEAN = (T1+T2)/2)
 
+#Computing correlations
+cor_conc_dep <- cor(rn$CONC, rn$DEPTH)
+cor_conc_temp <- cor(rn$CONC, rn$TMEAN)
+cor_temp_dep <- cor(rn$TMEAN, rn$DEPTH)
+
 
 #Want to check if it does exist a directory for the graphs: if not, we'll create it
 if(dir.exists('graphs') == F){
@@ -38,11 +43,11 @@ ggsave(rnp_fc_water, file='graphs/conc_fc_err.png', width = 12, height = 6)
 
 
 #Now the same as above, but with linear smoothing
-rnp_fc_water_lm <- ggplot(rn, aes(x=-DEPTH, y=CONC, color=H2O)) + geom_point() + 
-  labs(title='Concentration with depth', x='Depth (m)', y='Concentration (Bq/m^3)')  + 
+rnp_fc_water_lm <- ggplot(rn, aes(x=-DEPTH, y=CONC, color=H2O)) + geom_point() +
+  labs(title='Concentration with depth', x='Depth (m)', y='Concentration (Bq/m^3)')  +
   geom_smooth(method='lm') +
   facet_grid(. ~ CID) + geom_errorbar(aes(x =-DEPTH, ymin = (CONC - ABS_ERR), ymax = (CONC + ABS_ERR)))
-ggsave(rnp_fc_water_lm, file='graphs/conc_fc_err.png', width = 12, height = 6) 
+ggsave(rnp_fc_water_lm, file='graphs/conc_fc_err.png', width = 12, height = 6)
 
 # #Now the same as above, but with loess
 # rnp_fc_water_loess <- ggplot(rn, aes(x=-DEPTH, y=CONC, color=H2O)) + geom_point() + 
